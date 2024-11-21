@@ -1,0 +1,192 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class PlataformaIA {
+    private JFrame frame;
+    private JTextField searchField;
+    private JButton searchButton;
+    private JTextArea resultArea;
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new PlataformaIA().createAndShowGUI());
+    }
+
+    private void createAndShowGUI() {
+        frame = new JFrame("Plataforma de Pesquisa com IA");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        // Barra de Pesquisa
+        searchField = new JTextField();
+        searchField.setFont(new Font("Arial", Font.PLAIN, 18));
+        panel.add(searchField, BorderLayout.NORTH);
+
+        // Botão de Pesquisa
+        searchButton = new JButton("Pesquisar");
+        searchButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        panel.add(searchButton, BorderLayout.CENTER);
+
+        // Área de Resultados
+        resultArea = new JTextArea();
+        resultArea.setFont(new Font("Arial", Font.PLAIN, 16));
+        resultArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(resultArea);
+        panel.add(scrollPane, BorderLayout.SOUTH);
+
+        // Ação do botão de pesquisa
+        searchButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Strin
+import java.net.*;
+import java.io.*;
+
+public class OpenAIIntegration {
+
+    public static String getResponseFromOpenAI(String query) throws IOException {
+        String apiKey = "YOUR_API_KEY"; // Coloque sua chave da API aqui
+        String url = "https://api.openai.com/v1/completions";
+        URL obj = new URL(url);
+
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Authorization", "Bearer " + apiKey);
+        con.setRequestProperty("Content-Type", "application/json");
+
+        String data = "{\"model\":\"gpt-4\",\"prompt\":\"" + query + "\",\"max_tokens\":150}";
+
+        con.setDoOutput(true);
+        try (OutputStream os = con.getOutputStream()) {
+            byte[] input = data.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            return response.toString();
+        }
+    }
+}
+public class InputValidator {
+
+    // Valida a entrada para garantir que não contenha caracteres especiais perigosos
+    public static boolean validarEntrada(String input) {
+        // Regex para garantir que a entrada só contenha letras, números e espaços
+        String regex = "^[a-zA-Z0-9\\s]+$";
+        return input.matches(regex);
+    }
+}
+public class PlataformaIA {
+
+    private JFrame frame;
+    private JTextField searchField;
+    private JButton searchButton;
+    private JTextArea resultArea;
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new PlataformaIA().createAndShowGUI());
+    }
+
+    private void createAndShowGUI() {
+        frame = new JFrame("Plataforma de Pesquisa com IA");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        // Barra de Pesquisa
+        searchField = new JTextField();
+        searchField.setFont(new Font("Arial", Font.PLAIN, 18));
+        panel.add(searchField, BorderLayout.NORTH);
+
+        // Botão de Pesquisa
+        searchButton = new JButton("Pesquisar");
+        searchButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        panel.add(searchButton, BorderLayout.CENTER);
+
+        // Área de Resultados
+        resultArea = new JTextArea();
+        resultArea.setFont(new Font("Arial", Font.PLAIN, 16));
+        resultArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(resultArea);
+        panel.add(scrollPane, BorderLayout.SOUTH);
+
+        // Ação do botão de pesquisa
+        searchButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String query = searchField.getText().trim();
+                
+                // Valida a entrada antes de processar
+                if (!InputValidator.validarEntrada(query)) {
+                    resultArea.setText("Entrada inválida. Por favor, insira apenas letras, números e espaços.");
+                    return;
+                }
+                
+                if (!query.isEmpty()) {
+                    // Processamento de IA baseado na consulta
+                    String resultado = processarConsulta(query);
+                    resultArea.setText(resultado);
+                } else {
+                    resultArea.setText("Por favor, insira uma pesquisa.");
+                }
+            }
+        });
+
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+
+    private String processarConsulta(String query) {
+        // Simulando um sistema de IA simples com base em palavras-chave
+        if (query.contains("Java")) {
+            return "Você está buscando informações sobre Java? Java é uma linguagem de programação popular.";
+        } else if (query.contains("inteligência artificial")) {
+            return "Inteligência Artificial envolve a criação de sistemas que podem aprender e se adap
+import javax.swing.*;
+
+public class Autenticacao {
+
+    // Usuário e senha para autenticação
+    private static final String USER = "admin";
+    private static final String PASSWORD = "senha123";
+
+    // Método para verificar as credenciais
+    public static boolean verificarCredenciais(String usuario, String senha) {
+        return USER.equals(usuario) && PASSWORD.equals(senha);
+    }
+
+    // Tela de login
+    public static boolean fazerLogin() {
+        String usuario = JOptionPane.showInputDialog("Digite seu nome de usuário:");
+        String senha = new String(JOptionPane.showInputDialog("Digite sua senha:").toCharArray());
+
+        if (verificarCredenciais(usuario, senha)) {
+            JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Credenciais inválidas. Tente novamente.");
+            return false;
+        }
+    }
+}
+public class PlataformaIA {
+
+    public static void main(String[] args) {
+        // Primeiro, realizar o login
+        if (!Autenticacao.fazerLogin()) {
+            System.exit(0); // Se falhar, fechar o aplicativo
+        }
+
+        SwingUtilities.invokeLater(() -> new PlataformaIA().createAndShowGUI());
+    }
+
+    // O restante do código da PlataformaIA permanece o mesmo
+}
